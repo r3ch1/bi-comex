@@ -1,9 +1,16 @@
 <template>
-    <app-header></app-header>
-
-    <div class="grid grid-cols-[200px_auto]">
-        <div class="200"><app-sidemenu/></div>
-        <div class="200 p-5 border-t border-gray-100"><router-view/></div>
+    <div class="flex h-screen overflow-hidden">
+        <app-sidemenu/>
+        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+            <app-header/>
+            <main>
+                <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
+                    <div class="grid grid-cols-12 gap-4 md:gap-6">
+                        <router-view/>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 </template>
 <script>
