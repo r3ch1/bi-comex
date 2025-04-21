@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Exportacao extends Model
 {
@@ -11,28 +12,28 @@ class Exportacao extends Model
     use HasFactory;
     protected $table = 'exportacoes';
 
-    public function ncm(): HasOne
+    public function ncm(): BelongsTo
     {
-        return $this->hasOne(Ncm::class);
+        return $this->belongsTo(Ncm::class);
     }
 
-    public function unidade(): HasOne
+    public function unidade(): BelongsTo
     {
-        return $this->hasOne(Unidade::class);
+        return $this->belongsTo(Unidade::class);
     }
 
-    public function pais(): HasOne
+    public function pais(): BelongsTo
     {
-        return $this->hasOne(Pais::class);
+        return $this->belongsTo(Pais::class);
     }
 
-    public function via(): HasOne
+    public function via(): BelongsTo
     {
-        return $this->hasOne(Via::class);
+        return $this->belongsTo(Via::class);
     }
 
-    public function urf(): HasOne
+    public function urf(): BelongsTo
     {
-        return $this->hasOne(Urf::class);
+        return $this->belongsTo(Urf::class);
     }
 }

@@ -35,13 +35,17 @@ class GetTotaisPorUfAction extends BaseAction
             DB::raw('SUM(vl_fob) as total_vl_fob'),
             DB::raw('SUM(kg_liquido) as total_kg_liquido'),
             DB::raw('SUM(qt_estat) as total_qt_estat '),
-        ])->where(function($query) use($data){
-            $query->where('mes', $data->mes)
-            ->where('ano', $data->ano);
-        })->orWhere(function($query) use($competenciaAnterior){
-            list($ano, $mes) = explode('-', $competenciaAnterior);
-            $query->where('mes', $mes)
-            ->where('ano', $ano);
+        ])
+        ->where('uf', $data->uf)
+        ->where(function($query) use($data, $competenciaAnterior){
+            $query->where(function($query) use($data){
+                $query->where('mes', $data->mes)
+                ->where('ano', $data->ano);
+            })->orWhere(function($query) use($competenciaAnterior){
+                list($ano, $mes) = explode('-', $competenciaAnterior);
+                $query->where('mes', $mes)
+                ->where('ano', $ano);
+            });
         })
         ->groupBy(['ano', 'mes'])
         ->get();

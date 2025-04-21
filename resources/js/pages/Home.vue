@@ -7,8 +7,8 @@ export default {
         // reactive state
         let meses = ref([]);
         let anos = ref([]);
-        let mesSelecionado = ref(moment().format('M'));
-        let anoSelecionado = ref(moment().format('YYYY'));
+        let mesSelecionado = ref(moment().format("M"));
+        let anoSelecionado = ref(moment().format("YYYY"));
         // mounted
         onMounted(() => {
             // get api from laravel backend
@@ -36,22 +36,6 @@ export default {
             anos,
             mesSelecionado,
             anoSelecionado,
-            options: {
-                chart: {
-                    id: "vuechart-example",
-                },
-                xaxis: {
-                    categories: [
-                        1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
-                    ],
-                },
-            },
-            series: [
-                {
-                    name: "series-1",
-                    data: [30, 40, 45, 50, 49, 60, 70, 91],
-                },
-            ],
         };
     },
 };
@@ -64,42 +48,35 @@ export default {
                     class="text-xl font-semibold text-gray-800 dark:text-white/90"
                     x-text="pageName"
                 >
-                    Task List
+                    {{ [
+                        { nome: "Acre", url: "/AC" },
+                        { nome: "Alagoas", url: "/AL" },
+                        { nome: "Amapá", url: "/AP" },
+                        { nome: "Amazonas", url: "/AM" },
+                        { nome: "Bahia", url: "/BA" },
+                        { nome: "Ceará", url: "/CE" },
+                        { nome: "Espírito Santo", url: "/ES" },
+                        { nome: "Goiás", url: "/GO" },
+                        { nome: "Maranhão", url: "/MA" },
+                        { nome: "Mato Grosso", url: "/MT" },
+                        { nome: "Mato Grosso do Sul", url: "/MS" },
+                        { nome: "Minas Gerais", url: "/MG" },
+                        { nome: "Pará", url: "/PA" },
+                        { nome: "Paraíba", url: "/PB" },
+                        { nome: "Paraná", url: "/PR" },
+                        { nome: "Pernambuco", url: "/PE" },
+                        { nome: "Piauí", url: "/PI" },
+                        { nome: "Rio de Janeiro", url: "/RJ" },
+                        { nome: "Rio Grande do Norte", url: "/RN" },
+                        { nome: "Rio Grande do Sul", url: "/RS" },
+                        { nome: "Rondônia", url: "/RO" },
+                        { nome: "Roraima", url: "/RR" },
+                        { nome: "Santa Catarina", url: "/SC" },
+                        { nome: "São Paulo", url: "/SP" },
+                        { nome: "Sergipe", url: "/SE" },
+                        { nome: "Tocantins", url: "/TO" },
+                    ].find((d) => d.url === ('/'+$route.params.uf).toUpperCase()).nome }}
                 </h2>
-                <nav>
-                    <ol class="flex items-center gap-1.5">
-                        <li>
-                            <a
-                                class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
-                                href="index.html"
-                            >
-                                Home
-                                <svg
-                                    class="stroke-current"
-                                    width="17"
-                                    height="16"
-                                    viewBox="0 0 17 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M6.0765 12.667L10.2432 8.50033L6.0765 4.33366"
-                                        stroke=""
-                                        stroke-width="1.2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    ></path>
-                                </svg>
-                            </a>
-                        </li>
-                        <li
-                            class="text-sm text-gray-800 dark:text-white/90"
-                            x-text="pageName"
-                        >
-                            Task List
-                        </li>
-                    </ol>
-                </nav>
             </div>
         </div>
     </div>
@@ -214,88 +191,49 @@ export default {
                     </div>
                 </div>
             </div>
-            <app-header-totais uf="rj" :ano="anoSelecionado" :mes="mesSelecionado" />
+            <app-header-totais
+                :uf="$route.params.uf"
+                :ano="anoSelecionado"
+                :mes="mesSelecionado"
+            />
         </div>
         <div class="col-span-12 mt-5">
             <div
                 class="rounded-2xl border border-gray-200 bg-white px-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6"
             >
-                <div class="flex flex-wrap items-start justify-between gap-5">
-                    <div>
-                        <h3
-                            class="mb-1 text-lg font-semibold text-gray-800 dark:text-white/90"
-                        >
-                            Analytics
-                        </h3>
-                        <span
-                            class="block text-theme-sm text-gray-500 dark:text-gray-400"
-                        >
-                            Visitor analytics of last 30 days
-                        </span>
-                    </div>
-
-                    <div
-                        x-data="{selected: 'optionOne'}"
-                        class="flex items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 dark:bg-gray-900"
-                    >
-                        <button
-                            @click="selected = 'optionOne'"
-                            :class="
-                                selected === 'optionOne'
-                                    ? 'shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800'
-                                    : 'text-gray-500 dark:text-gray-400'
-                            "
-                            class=":hover:text-white rounded-md px-3 py-2 text-theme-sm font-medium hover:text-gray-900 shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-                        >
-                            12 months
-                        </button>
-
-                        <button
-                            @click="selected = 'optionTwo'"
-                            :class="
-                                selected === 'optionTwo'
-                                    ? 'shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800'
-                                    : 'text-gray-500 dark:text-gray-400'
-                            "
-                            class="hover:text-gray-900dark:hover:text-white rounded-md px-3 py-2 text-theme-sm font-medium text-gray-500 dark:text-gray-400"
-                        >
-                            30 days
-                        </button>
-
-                        <button
-                            @click="selected = 'optionThree'"
-                            :class="
-                                selected === 'optionThree'
-                                    ? 'shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800'
-                                    : 'text-gray-500 dark:text-gray-400'
-                            "
-                            class="rounded-md px-3 py-2 text-theme-sm font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400"
-                        >
-                            7 days
-                        </button>
-
-                        <button
-                            @click="selected = 'optionFour'"
-                            :class="
-                                selected === 'optionFour'
-                                    ? 'shadow-theme-xs text-gray-900 dark:text-white bg-white dark:bg-gray-800'
-                                    : 'text-gray-500 dark:text-gray-400'
-                            "
-                            class="rounded-md px-3 py-2 text-theme-sm font-medium hover:text-gray-900 dark:hover:text-white text-gray-500 dark:text-gray-400"
-                        >
-                            24 hours
-                        </button>
-                    </div>
+                <app-grafico-vl-fob-por-dia
+                    :uf="$route.params.uf"
+                    :ano="anoSelecionado"
+                    :mes="mesSelecionado"
+                />
+            </div>
+        </div>
+        <div class="col-span-12 xl:col-span-7 mt-5">
+            <!-- ====== Top Card Group Start -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <!-- Card item -->
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-white/[0.03] md:p-6"
+                >
+                    <app-grafico-vl-fob-por-pais
+                        :uf="$route.params.uf"
+                        :ano="anoSelecionado"
+                        :mes="mesSelecionado"
+                    />
                 </div>
-                <div class="custom-scrollbar max-w-full overflow-x-auto">
-                    <apexchart
-                        height="300"
-                        type="bar"
-                        :options="options"
-                        :series="series"
+
+                <!-- Card item -->
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6"
+                >
+                    <app-grafico-vl-fob-por-via
+                        :uf="$route.params.uf"
+                        :ano="anoSelecionado"
+                        :mes="mesSelecionado"
                     />
                 </div>
             </div>
+            <!-- ====== Top Card Group End -->
         </div>
     </div>
 </template>
