@@ -30,6 +30,11 @@ class GetExportacoesAction extends BaseAction
         'paginado' => 'boolean',
     ];
 
+    public function __invoke()
+    {
+        dd('aaa');
+    }
+
     public function handle(GetExportacoesDto $data)
     {
         $this->validateData($data);
