@@ -31,17 +31,21 @@ class GetTotaisPorCampoAction extends BaseAction
     {
         $this->validateData($data);
 
-        return Exportacao::select([
+        $exportacoes = Exportacao::select([
             $data->campo,
             DB::raw('SUM('.$data->totalizador.') as sumed_'.$data->totalizador)
         ])
-        ->with(str_replace('_id', '', $data->campo))
         ->where('uf', $data->uf)
         ->where(function($query) use($data){
             $query->where('mes', $data->mes)
             ->where('ano', $data->ano);
         })
-        ->groupBy($data->campo)
-        ->get();
+        ->groupBy($data->campo);
+
+        if (in_array($data->campo, ['ncm_id', 'unidade_id', 'pais_id', 'via_id', 'urf_id'])) {
+            $exportacoes->with(str_replace('_id', '', $data->campo));
+        }
+
+        return $exportacoes->get();
     }
 }
